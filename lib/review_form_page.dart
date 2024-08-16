@@ -191,7 +191,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                     ),
                     label: RichText(
                       text: TextSpan(
-                        text: 'مقدار المراجعة',
+                        text: 'المجموعة',
                         style: TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
@@ -252,7 +252,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         style: TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
-                            text: ' *',
+                            text: ' ',
                             style: TextStyle(color: Colors.red),
                           ),
                         ],

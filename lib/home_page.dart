@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome.dart'; // Importez WelcomePage ici
+import 'choice.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -65,7 +66,7 @@ class HomePage extends StatelessWidget {
                       // Navigate to WelcomePage when button is pressed
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => WelcomePage()),
+                        MaterialPageRoute(builder: (context) => ChoicePage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

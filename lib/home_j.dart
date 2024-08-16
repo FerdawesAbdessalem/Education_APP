@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'review_form_page.dart'; // Ensure correct import path
 import 'exam_form_page.dart'; // Ensure correct import path
 import 'enregistrer.dart'; // Ensure correct import path
-import 'package:flutter_application_3/menu.dart'; // Adjust the import path if needed
-import 'package:flutter_application_3/EditStudentPage.dart';
+import 'package:flutter_application_4/menu.dart'; // Adjust the import path if needed
+import 'package:flutter_application_4/EditStudentPage.dart';
 import 'student_detail_page.dart'; // Import de la page de détails
 import 'review_detail_page.dart';
 import 'exam_detail_page.dart';
 import 'menu.dart'; // Import the MenuPage
+import 'save_form_page.dart';
+import 'save_detail_page.dart';
 
 class HomeJPage extends StatefulWidget {
   @override
@@ -21,6 +23,7 @@ class _HomeJPageState extends State<HomeJPage> {
     StudentsPage(),
     ReviewPage(),
     ExamsPage(),
+    SPage(),
   ];
 
   Future<bool> _onWillPop() async {
@@ -80,13 +83,26 @@ class _HomeJPageState extends State<HomeJPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.book),
-              label: 'الحفظ والمراجعة',
+              label: 'المراجعة',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark),
               label: 'الامتحانات',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.save_as),
+              label: 'الحفظ',
+            ),
           ],
+          backgroundColor:
+              Colors.transparent, // Make the background transparent
+          selectedItemColor:
+              Color.fromARGB(255, 163, 157, 157), // Color of the selected item
+          unselectedItemColor: const Color.fromARGB(
+              255, 163, 157, 157), // Color of the unselected items
+          type: BottomNavigationBarType
+              .fixed, // Ensures that the items are displayed in a fixed layout
+          elevation: 0, // Removes the shadow effect
         ),
       ),
     );
@@ -513,6 +529,295 @@ class _ReviewPageState extends State<ReviewPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SPage extends StatefulWidget {
+  @override
+  _SPageState createState() => _SPageState();
+}
+
+class _SPageState extends State<SPage> {
+  List<Map<String, String>> saveItems = [
+    {
+      'title': 'الثمن الأخير من سورة الزمر',
+      'details': '2023-07-01',
+      'status': 'قيد التنفيذ',
+    },
+    {
+      'title': 'سورة النبأ',
+      'details': '2023-08-01',
+      'status': 'مكتمل',
+    },
+    {
+      'title': 'من الاية 16 الى الاية 40 من سورة غافر',
+      'details': '2023-09-01',
+      'status': 'لم يبدأ',
+    },
+  ];
+
+  void _showOptions(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('الخيارات'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('تفاصيل'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                final item = saveItems[index];
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SaveDetailPage(
+                      title: item['title']!,
+                      details: item['details']!,
+                      student:
+                          'Student Name', // Update these values as necessary
+                      supervisor: 'Supervisor Name',
+                      group: 'Group Name',
+                      date: 'Date',
+                      deadline: 'Deadline',
+                    ),
+                  ),
+                );
+              },
+            ),
+            TextButton(
+              child: Text('تعديل'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _editItem(index);
+              },
+            ),
+            TextButton(
+              child: Text('حذف'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  saveItems.removeAt(index);
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _editItem(int index) {
+    final item = saveItems[index];
+    final TextEditingController titleController =
+        TextEditingController(text: item['title']);
+    final TextEditingController detailsController =
+        TextEditingController(text: item['details']);
+    final TextEditingController statusController =
+        TextEditingController(text: item['status']);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('تعديل العنصر'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'العنوان'),
+              ),
+              TextField(
+                controller: detailsController,
+                decoration: InputDecoration(labelText: 'التفاصيل'),
+              ),
+              TextField(
+                controller: statusController,
+                decoration: InputDecoration(labelText: 'الحالة'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('حفظ'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  saveItems[index] = {
+                    'title': titleController.text,
+                    'details': detailsController.text,
+                    'status': statusController.text,
+                  };
+                });
+              },
+            ),
+            TextButton(
+              child: Text('إلغاء'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: -80,
+            child: Container(
+              width: 190,
+              height: 190,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFF499DA2).withOpacity(0.5),
+              ),
+            ),
+          ),
+          Positioned(
+            top: -70,
+            left: 20,
+            child: Container(
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFF499DA2).withOpacity(0.5),
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.add, size: 30),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SaveFormPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    VerticalDivider(color: Colors.black, width: 1),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.search, size: 30),
+                          onPressed: () {
+                            // Implement search functionality here
+                          },
+                        ),
+                        SizedBox(width: 2),
+                        IconButton(
+                          icon: Icon(Icons.menu, size: 30),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MenuPage(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 80),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: saveItems.length,
+                  itemBuilder: (context, index) {
+                    final item = saveItems[index];
+                    return GestureDetector(
+                      onLongPress: () {
+                        _showOptions(context, index);
+                      },
+                      child: Card(
+                        color: Colors.grey[100],
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                        child: ListTile(
+                          title: Text(item['title']!,
+                              textDirection: TextDirection.rtl),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _addNewItem() {
+    final TextEditingController titleController = TextEditingController();
+    final TextEditingController detailsController = TextEditingController();
+    final TextEditingController statusController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('إضافة عنصر جديد'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'العنوان'),
+              ),
+              TextField(
+                controller: detailsController,
+                decoration: InputDecoration(labelText: 'التفاصيل'),
+              ),
+              TextField(
+                controller: statusController,
+                decoration: InputDecoration(labelText: 'الحالة'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('إضافة'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  saveItems.add({
+                    'title': titleController.text,
+                    'details': detailsController.text,
+                    'status': statusController.text,
+                  });
+                });
+              },
+            ),
+            TextButton(
+              child: Text('إلغاء'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

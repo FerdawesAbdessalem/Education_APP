@@ -43,7 +43,7 @@ class WelcomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         right: 50.0), // Adjust the padding to move the image
                     child: Image.asset(
-                      'assets/quran_study.jpg', // Add your image in the assets folder and update the path
+                      'assets/association.jpg', // Add your image in the assets folder and update the path
                       width: MediaQuery.of(context).size.width *
                           0.7, // Adjust width
                       height: MediaQuery.of(context).size.height *

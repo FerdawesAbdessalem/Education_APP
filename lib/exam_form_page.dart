@@ -174,7 +174,7 @@ class _ExamFormPageState extends State<ExamFormPage> {
                         decoration: InputDecoration(
                           label: RichText(
                             text: TextSpan(
-                              text: 'المقدار',
+                              text: 'المجموعة',
                               style: TextStyle(color: Colors.black),
                               children: [
                                 TextSpan(
@@ -190,7 +190,7 @@ class _ExamFormPageState extends State<ExamFormPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'يرجى إدخال المقدار';
+                            return 'يرجى إدخال المجموعة';
                           }
                           return null;
                         },
@@ -204,7 +204,7 @@ class _ExamFormPageState extends State<ExamFormPage> {
                               style: TextStyle(color: Colors.black),
                               children: [
                                 TextSpan(
-                                  text: ' *',
+                                  text: ' ',
                                   style: TextStyle(color: Colors.red),
                                 ),
                               ],
