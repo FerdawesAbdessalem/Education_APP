@@ -116,6 +116,7 @@ class StudentsPage extends StatefulWidget {
 
 class _StudentsPageState extends State<StudentsPage> {
   List<Map<String, String>> students = [
+    // Your existing student data
     {
       'name': 'فردوس عبد السلام',
       'email': 'ferdwesabd@gmail.com',
@@ -155,6 +156,28 @@ class _StudentsPageState extends State<StudentsPage> {
     // Add more students here
   ];
 
+  List<Map<String, String>> filteredStudents = [];
+  TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    filteredStudents = students;
+    _searchController.addListener(() {
+      _filterStudents();
+    });
+  }
+
+  void _filterStudents() {
+    setState(() {
+      filteredStudents = students
+          .where((student) => student['name']!
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase()))
+          .toList();
+    });
+  }
+
   void _showOptions(BuildContext context, int index) {
     showDialog(
       context: context,
@@ -175,6 +198,7 @@ class _StudentsPageState extends State<StudentsPage> {
                 Navigator.of(context).pop();
                 setState(() {
                   students.removeAt(index);
+                  _filterStudents(); // Re-filter the students after deletion
                 });
               },
             ),
@@ -189,10 +213,12 @@ class _StudentsPageState extends State<StudentsPage> {
       context,
       MaterialPageRoute(
         builder: (context) => EnregistrerPage(
-          student: students[index], // Pass the existing student data
+          student: filteredStudents[index], // Pass the existing student data
           onStudentAdded: (student) {
             setState(() {
-              students[index] = student;
+              filteredStudents[index] = student;
+              students[students
+                  .indexWhere((s) => s['email'] == student['email'])] = student;
             });
           },
         ),
@@ -201,7 +227,9 @@ class _StudentsPageState extends State<StudentsPage> {
 
     if (updatedStudent != null) {
       setState(() {
-        students[index] = updatedStudent;
+        filteredStudents[index] = updatedStudent;
+        students[students.indexWhere(
+            (s) => s['email'] == updatedStudent['email'])] = updatedStudent;
       });
     }
   }
@@ -255,6 +283,7 @@ class _StudentsPageState extends State<StudentsPage> {
                                 if (newStudent != null) {
                                   setState(() {
                                     students.add(newStudent);
+                                    _filterStudents(); // Re-filter the students after adding
                                   });
                                 }
                               },
@@ -267,12 +296,6 @@ class _StudentsPageState extends State<StudentsPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.search, size: 30),
-                          onPressed: () {
-                            // Implement search functionality here
-                          },
-                        ),
-                        IconButton(
                           icon: Icon(Icons.menu, size: 30),
                           onPressed: () {
                             Navigator.pushNamed(
@@ -284,13 +307,27 @@ class _StudentsPageState extends State<StudentsPage> {
                   ],
                 ),
               ),
+              // Search TextField
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    labelText: 'بحث...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
               // Avatar Row
               Container(
                 padding: const EdgeInsets.symmetric(
                     vertical: 8.0), // Add vertical padding
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: students.map((student) {
+                  children: filteredStudents.map((student) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 4.0), // Space between avatars
@@ -304,9 +341,9 @@ class _StudentsPageState extends State<StudentsPage> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: students.length,
+                  itemCount: filteredStudents.length,
                   itemBuilder: (context, index) {
-                    final student = students[index];
+                    final student = filteredStudents[index];
                     return Card(
                       color: Colors.grey[100],
                       child: ListTile(
@@ -829,16 +866,31 @@ class ExamsPage extends StatefulWidget {
 
 class _ExamsPageState extends State<ExamsPage> {
   List<Map<String, String>> exams = [
-    {
-      'title': 'امتحان رقم 1',
-    },
-    {
-      'title': 'امتحان رقم 2',
-    },
-    {
-      'title': 'امتحان رقم 3',
-    },
+    {'title': 'امتحان رقم 1'},
+    {'title': 'امتحان رقم 2'},
+    {'title': 'امتحان رقم 3'},
   ];
+
+  List<Map<String, String>> filteredExams = [];
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    filteredExams = exams;
+    _searchController.addListener(() {
+      filterExams();
+    });
+  }
+
+  void filterExams() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      filteredExams = exams
+          .where((exam) => exam['title']!.toLowerCase().contains(query))
+          .toList();
+    });
+  }
 
   void _showOptions(BuildContext context, int index) {
     showDialog(
@@ -851,7 +903,7 @@ class _ExamsPageState extends State<ExamsPage> {
               child: Text('تعديل'),
               onPressed: () {
                 Navigator.of(context).pop();
-                _navigateToFormPage(exams[index]);
+                _navigateToFormPage(filteredExams[index]);
               },
             ),
             TextButton(
@@ -859,7 +911,8 @@ class _ExamsPageState extends State<ExamsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
-                  exams.removeAt(index);
+                  exams.remove(filteredExams[index]);
+                  filterExams();
                 });
               },
             ),
@@ -881,12 +934,14 @@ class _ExamsPageState extends State<ExamsPage> {
       if (exam == null) {
         setState(() {
           exams.add(result);
+          filterExams();
         });
       } else {
         setState(() {
           final index = exams.indexOf(exam);
           if (index != -1) {
             exams[index] = result;
+            filterExams();
           }
         });
       }
@@ -943,7 +998,10 @@ class _ExamsPageState extends State<ExamsPage> {
                         IconButton(
                           icon: Icon(Icons.search, size: 30), // Search icon
                           onPressed: () {
-                            // Implement search functionality
+                            showSearch(
+                              context: context,
+                              delegate: ExamSearchDelegate(filteredExams),
+                            );
                           },
                         ),
                         SizedBox(width: 2),
@@ -966,9 +1024,9 @@ class _ExamsPageState extends State<ExamsPage> {
               SizedBox(height: 80),
               Expanded(
                 child: ListView.builder(
-                  itemCount: exams.length,
+                  itemCount: filteredExams.length,
                   itemBuilder: (context, index) {
-                    final exam = exams[index];
+                    final exam = filteredExams[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -1003,6 +1061,86 @@ class _ExamsPageState extends State<ExamsPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ExamSearchDelegate extends SearchDelegate {
+  final List<Map<String, String>> exams;
+
+  ExamSearchDelegate(this.exams);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final results = exams
+        .where((exam) =>
+            exam['title']!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final exam = results[index];
+        return ListTile(
+          title: Text(exam['title']!, textDirection: TextDirection.rtl),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ExamDetailPage(exam: exam),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestions = exams
+        .where((exam) =>
+            exam['title']!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (context, index) {
+        final exam = suggestions[index];
+        return ListTile(
+          title: Text(exam['title']!, textDirection: TextDirection.rtl),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ExamDetailPage(exam: exam),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

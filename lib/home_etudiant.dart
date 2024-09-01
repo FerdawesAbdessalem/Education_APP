@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'p_etudiant.dart'; // Make sure to import the p_etudiant.dart file
+import 'review_form_page.dart';
 
 class HomeEtudiantPage extends StatefulWidget {
   @override
@@ -109,7 +110,7 @@ class SavePage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          PEtudiantPage()), // Navigate to p_etudiant.dart
+                          PEtudiantPage()), // Navigate to PEtudiantPage
                 );
               },
             ),
@@ -122,15 +123,51 @@ class SavePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 180),
-                  // Adding multiple empty cards with smaller height and full width
+                  // Adding multiple cards with styled buttons
                   for (var i = 0; i < 5; i++)
                     Card(
-                      elevation: 5,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       color: Colors.grey[100],
                       child: Container(
                         width: screenWidth - 32, // Full width minus padding
                         height: 80, // Adjust height as needed
-                        // Leave the container empty for now
+                        padding: EdgeInsets.all(12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Add your button action here
+                              },
+                              child: Text(
+                                'ابدأ',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                // Button color
+                                backgroundColor: Color.fromARGB(
+                                    255, 161, 172, 172), // Button color
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                                side: BorderSide(
+                                  color: Color.fromARGB(255, 161, 172, 172),
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                 ],
@@ -197,7 +234,7 @@ class ReviewPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          PEtudiantPage()), // Navigate to p_etudiant.dart
+                          PEtudiantPage()), // Navigate to PEtudiantPage
                 );
               },
             ),
@@ -210,15 +247,51 @@ class ReviewPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 180),
-                  // Adding multiple empty cards with smaller height and full width
+                  // Adding multiple cards with styled buttons
                   for (var i = 0; i < 5; i++)
                     Card(
-                      elevation: 5,
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       color: Colors.grey[100],
                       child: Container(
                         width: screenWidth - 32, // Full width minus padding
                         height: 80, // Adjust height as needed
-                        // Leave the container empty for now
+                        padding: EdgeInsets.all(12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Add your button action here
+                              },
+                              child: Text(
+                                'ابدأ',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromARGB(
+                                    255, 161, 172, 172), // Button color
+
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                                side: BorderSide(
+                                  color: Color.fromARGB(255, 161, 172, 172),
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                 ],

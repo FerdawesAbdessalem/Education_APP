@@ -45,7 +45,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
       lastDate: DateTime(2101),
     );
     if (picked != null &&
-        picked != (isDeadline ? _selectedDeadline : _selectedDate))
+        picked != (isDeadline ? _selectedDeadline : _selectedDate)) {
       setState(() {
         if (isDeadline) {
           _selectedDeadline = picked;
@@ -53,6 +53,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
           _selectedDate = picked;
         }
       });
+    }
   }
 
   void _addReview() {
@@ -69,7 +70,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
         'responsible': _selectedResponsible!,
       };
 
-      Navigator.pop(context, newReview);
+      Navigator.pop(context, newReview); // Passer le review à ReviewPage
     }
   }
 
@@ -307,13 +308,8 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 50),
-                      backgroundColor: Color(0xFF50B3B3),
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(30.0), // Coins arrondis
-                      ),
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                      backgroundColor: Colors.grey[100],
                     ),
                   ),
                 ),

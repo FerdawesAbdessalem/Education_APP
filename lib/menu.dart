@@ -62,13 +62,13 @@ class MenuPage extends StatelessWidget {
                     context,
                     Icons.settings,
                     'الإعدادات',
-                    '/settings', // Navigate to settings page
+                    '/settings', // Navigate to settings page // Navigate to settings page
                   ),
                   _buildMenuTile(
                     context,
-                    Icons.help,
-                    'مساعدة',
-                    '/help', // Navigate to help page
+                    Icons.notifications,
+                    'الاشعارات',
+                    '/notification',
                   ),
                   _buildMenuTile(
                     context,

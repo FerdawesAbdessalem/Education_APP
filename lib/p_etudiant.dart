@@ -47,9 +47,21 @@ class PEtudiantPage extends StatelessWidget {
                 children: [
                   _buildMenuTile(
                     context,
+                    Icons.home,
+                    'الرئيسية',
+                    '/home_etudiant', // Navigate to home_j.dart
+                  ),
+                  _buildMenuTile(
+                    context,
                     Icons.person,
                     'الملف الشخصي',
                     '/petudiant',
+                  ),
+                  _buildMenuTile(
+                    context,
+                    Icons.settings,
+                    'الاعدادات',
+                    '/settings', // Navigate to settings page
                   ),
                   _buildMenuTile(
                     context,
@@ -59,21 +71,9 @@ class PEtudiantPage extends StatelessWidget {
                   ),
                   _buildMenuTile(
                     context,
-                    Icons.help,
-                    'مساعدة',
-                    null, // No navigation
-                  ),
-                  _buildMenuTile(
-                    context,
                     Icons.report,
                     'الإبلاغ عن مشكلة',
-                    null, // No navigation
-                  ),
-                  _buildMenuTile(
-                    context,
-                    Icons.settings,
-                    'الاعدادات',
-                    null, // No navigation
+                    '/report',
                   ),
                   _buildMenuTile(
                     context,
