@@ -1,17 +1,29 @@
-# flutter_application_3
+# Wirdi App 📱  
+Application mobile développée avec **Flutter** pour les associations du Quran, facilitant :  
+- La gestion des étudiants.  
+- La planification des révisions et mémorisation.  
+- L'organisation des examens.  
 
-A new Flutter project.
+---
 
-## Getting Started
+## Fonctionnalités  
+- **Gestion des étudiants** : Ajout, modification et consultation des informations.  
+- **Révisions & mémorisation** : Suivi des progrès et création de programmes personnalisés.  
+- **Examens** : Planification et gestion des résultats.  
+- **Notifications** : Rappels pour examens et révisions.  
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies  
+- **Flutter**  
+- **Dart**  
+- **Firebase** (optionnel)  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# -Education_APP" 
+## 🖥Installation  
+```bash
+git clone https://github.com/FerdawesAbdessalem/Education_APP.git  
+cd Education_APP  
+flutter pub get  
+flutter run  
