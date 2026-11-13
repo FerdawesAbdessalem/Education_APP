@@ -97,7 +97,7 @@ class _MyWird extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('أهلًا ${student.name.split(' ').first} 👋',
+                    Text('أهلًا ${student.name.split(' ').first}',
                         style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800)),
                     const SizedBox(height: 6),
                     Text(

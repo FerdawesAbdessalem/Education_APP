@@ -240,7 +240,7 @@ class AppState extends ChangeNotifier {
     var events = _data.events;
     if (updated.isDone && !program.isDone) {
       final student = studentById(program.studentId);
-      events = _withEvent(EventType.progress, '${student?.name ?? ''} أتمّ برنامج ${program.title} 🎉', studentId: program.studentId);
+      events = _withEvent(EventType.progress, '${student?.name ?? ''} أتمّ برنامج ${program.title}', studentId: program.studentId);
     }
     await _commit(_copy(programs: _data.programs.map((p) => p.id == programId ? updated : p).toList(), events: events));
   }
@@ -268,7 +268,7 @@ class AppState extends ChangeNotifier {
     final updated = exam.copyWith(grade: grade, status: passed ? ExamStatus.passed : ExamStatus.failed);
     final events = _withEvent(
       EventType.exam,
-      'نتيجة ${exam.title}: ${grade.toStringAsFixed(grade % 1 == 0 ? 0 : 1)}/20 ${passed ? '✅' : ''}',
+      'نتيجة ${exam.title}: ${grade.toStringAsFixed(grade % 1 == 0 ? 0 : 1)}/20 — ${passed ? 'ناجح' : 'يُعاد'}',
       studentId: exam.studentId,
     );
     await _commit(_copy(exams: _data.exams.map((e) => e.id == examId ? updated : e).toList(), events: events));
