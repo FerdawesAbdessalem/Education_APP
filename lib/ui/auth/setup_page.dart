@@ -78,7 +78,7 @@ class _SetupPageState extends State<SetupPage> {
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLength: 4,
-              decoration: const InputDecoration(labelText: 'الرمز السري (4 أرقام)', prefixIcon: Icon(Icons.lock_outline)),
+              decoration: const InputDecoration(labelText: 'الرمز السري (4 أرقام)', prefixIcon: Icon(Icons.lock_outline), counterText: ''),
               validator: (v) => RegExp(r'^\d{4}$').hasMatch(v ?? '') ? null : 'أدخل 4 أرقام',
             ),
             TextFormField(
@@ -86,7 +86,7 @@ class _SetupPageState extends State<SetupPage> {
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLength: 4,
-              decoration: const InputDecoration(labelText: 'تأكيد الرمز السري', prefixIcon: Icon(Icons.lock_outline)),
+              decoration: const InputDecoration(labelText: 'تأكيد الرمز السري', prefixIcon: Icon(Icons.lock_outline), counterText: ''),
               validator: (v) => v == _pin.text ? null : 'الرمزان غير متطابقين',
             ),
             SwitchListTile(

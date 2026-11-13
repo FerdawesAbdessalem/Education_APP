@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:wirdi_app/data/models.dart';
 import 'package:wirdi_app/state/app_state.dart';
 import 'package:wirdi_app/ui/supervisor/exam_form_page.dart';
 import 'package:wirdi_app/ui/supervisor/exams_page.dart';

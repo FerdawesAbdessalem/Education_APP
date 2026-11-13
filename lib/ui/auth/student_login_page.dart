@@ -73,7 +73,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
               controller: _code,
               keyboardType: TextInputType.number,
               maxLength: 6,
-              decoration: const InputDecoration(labelText: 'رمز الدخول (6 أرقام)', prefixIcon: Icon(Icons.key_outlined)),
+              decoration: const InputDecoration(labelText: 'رمز الدخول (6 أرقام)', prefixIcon: Icon(Icons.key_outlined), counterText: ''),
               validator: (v) => RegExp(r'^\d{6}$').hasMatch(v ?? '') ? null : 'الرمز يتكون من 6 أرقام',
               onFieldSubmitted: (_) => _submit(),
             ),

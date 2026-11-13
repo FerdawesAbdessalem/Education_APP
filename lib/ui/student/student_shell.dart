@@ -28,6 +28,7 @@ class _StudentShellState extends State<StudentShell> {
     const titles = ['وردي', 'اختباراتي', 'الإشعارات'];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(titles[_tab]),
         actions: [
           IconButton(
@@ -101,7 +102,7 @@ class _MyWird extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       s.groupById(student.groupId)?.name ?? '',
-                      style: TextStyle(color: Colors.white.withOpacity(0.85)),
+                      style: TextStyle(color: Colors.white.withValues(alpha: 0.85)),
                     ),
                     const SizedBox(height: 10),
                     const Text('«خيركم من تعلّم القرآن وعلّمه»', style: TextStyle(color: AppColors.goldSoft, fontSize: 13)),

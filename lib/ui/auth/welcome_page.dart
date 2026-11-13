@@ -53,7 +53,7 @@ class WelcomePage extends StatelessWidget {
                 Text(
                   state.association?.name ?? 'رفيقك في حفظ القرآن الكريم ومراجعته',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 16),
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 16),
                 ),
                 const Spacer(flex: 2),
                 _RoleButton(
@@ -111,7 +111,7 @@ class _RoleButton extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_left_rounded, color: AppColors.textMuted),
+              const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
             ],
           ),
         ),

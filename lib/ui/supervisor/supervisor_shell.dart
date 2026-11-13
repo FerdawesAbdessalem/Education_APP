@@ -33,6 +33,7 @@ class _SupervisorShellState extends State<SupervisorShell> {
     ];
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(_titles[_tab]),
         actions: [
           IconButton(
@@ -89,7 +90,7 @@ class _Dashboard extends StatelessWidget {
                     Text('السلام عليكم ${association?.supervisorName ?? ''}',
                         style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
                     const SizedBox(height: 4),
-                    Text(association?.name ?? '', style: TextStyle(color: Colors.white.withOpacity(0.85))),
+                    Text(association?.name ?? '', style: TextStyle(color: Colors.white.withValues(alpha: 0.85))),
                     const SizedBox(height: 12),
                     const Text('متوسط تقدّم الطلاب', style: TextStyle(color: Colors.white70, fontSize: 13)),
                   ],

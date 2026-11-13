@@ -45,7 +45,7 @@ class StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(radius: 18, backgroundColor: color.withOpacity(0.12), child: Icon(icon, color: color, size: 20)),
+          CircleAvatar(radius: 18, backgroundColor: color.withValues(alpha: 0.12), child: Icon(icon, color: color, size: 20)),
           const SizedBox(height: 12),
           Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: AppColors.text)),
           Text(label, style: const TextStyle(color: AppColors.textMuted, fontSize: 13)),
@@ -113,7 +113,7 @@ class ProgressRing extends StatelessWidget {
           CircularProgressIndicator(
             value: value,
             strokeWidth: size / 10,
-            backgroundColor: color.withOpacity(0.2),
+            backgroundColor: color.withValues(alpha: 0.2),
             color: color,
             strokeCap: StrokeCap.round,
           ),
@@ -186,7 +186,7 @@ class Pill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(20)),
       child: Text(text, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700)),
     );
   }
