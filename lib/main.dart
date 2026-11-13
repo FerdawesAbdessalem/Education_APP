@@ -1,49 +1,40 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'create.dart';
-import 'home_j.dart';
-import 'home_page.dart';
-import 'profil.dart';
-import 'settings.dart';
-import 'help.dart';
-import 'report.dart';
-import 'home_j.dart'; // Import StudentsPage
-import 'menu.dart'; // Import MenuPage
-import 'create_etudiant.dart';
-import 'login_etudiant.dart';
-import 'home_etudiant.dart';
-import 'PEtudiant.dart';
-import 'Notification.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:wirdi_app/data/wird_repository.dart';
+import 'package:wirdi_app/state/app_state.dart';
+import 'package:wirdi_app/ui/auth/welcome_page.dart';
+import 'package:wirdi_app/ui/theme.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppState(LocalWirdRepository())..init(),
+      child: const WirdiApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class WirdiApp extends StatelessWidget {
+  const WirdiApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final loaded = context.select<AppState, bool>((s) => s.loaded);
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(), // Use HomePage as the home page
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/create': (context) => CreatePage(),
-        '/home_j': (context) => HomeJPage(),
-        '/profile': (context) => ProfilPage(),
-        '/settings': (context) => SettingsPage(),
-        '/help': (context) => HelpPage(),
-        '/report': (context) => ReportPage(),
-        '/students': (context) => HomeJPage(), // Add route for StudentsPage
-        '/menu': (context) => MenuPage(), // Add route for MenuPage
-        '/login_etudiant': (context) => LoginEtudiantPage(),
-        '/create_etudiant': (context) => CreateEtudiantPage(),
-        '/home_etudiant': (context) => HomeEtudiantPage(),
-        '/petudiant': (context) => PEtudiant(),
-        '/notification': (context) => NotificationPage(),
-      },
+      title: 'وِردي',
+      debugShowCheckedModeBanner: false,
+      theme: buildTheme(),
+      // Arabic, right-to-left interface.
+      locale: const Locale('ar'),
+      supportedLocales: const [Locale('ar'), Locale('fr'), Locale('en')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: loaded ? const WelcomePage() : const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }
